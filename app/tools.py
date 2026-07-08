@@ -45,12 +45,7 @@ def write_tool(query: str):
 
             }
         else:
-            return {
-
-                "status": "SUCCESS",
-
-                "message": "Database updated successfully.",
-            }
+            return "SUCCESS DB UPDATED"
     else:
         add_memory(query,'CANCELED')
         return {

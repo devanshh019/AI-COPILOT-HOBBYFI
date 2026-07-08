@@ -20,12 +20,10 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 def chat(request: ChatRequest):
 
-    allowed, message = check_guardrail(request.query)
-
-    if not allowed:
+    decision = check_guardrail(request.query)
+    if decision != "ALLOW":
         return {
-            "status": "blocked",
-            "message": message
+            "status": "BLOCKED",
+            "message": "Request blocked by AI Guardrail."
         }
-
     return run_agent(request.query)

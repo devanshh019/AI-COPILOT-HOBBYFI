@@ -34,6 +34,24 @@ Examples:
 - Extend Rahul's trial
 - Change email
 
+Follow-up questions are also valid requests.
+
+Examples:
+- which 3 days?
+- last 2 days
+- yesterday?
+- today?
+- his details
+- her trial
+- their membership
+- what about him?
+- show it again
+
+If a follow-up question refers to previous conversation,
+classify it according to the previous intent.
+
+These are READ requests unless the user is asking to modify data.
+
 If you're unsure, return UNKNOWN.
 
 Respond with ONLY one word:

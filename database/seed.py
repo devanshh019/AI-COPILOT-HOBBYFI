@@ -1,22 +1,26 @@
 import sqlite3
+from datetime import date, timedelta
 
 conn = sqlite3.connect("database/hobbyfi.db")
 cursor = conn.cursor()
 
 
-
+today = date.today()
+yesterday = today - timedelta(days=1)
+two_days = today - timedelta(days=2)
+three_days = today - timedelta(days=3)
 
 users = [
-    ("Rahul Sharma", "rahul@gmail.com", "Badminton", "Trial", "2026-07-15"),
-    ("Priya Singh", "priya@gmail.com", "Football", "Premium", "2026-12-31"),
-    ("Aman Verma", "aman@gmail.com", "Cricket", "Gold", "2026-11-20"),
-    ("Riya Gupta", "riya@gmail.com", "Badminton", "Premium", "2026-10-10"),
-    ("Arjun Kumar", "arjun@gmail.com", "Tennis", "Trial", "2026-07-20"),
-    ("Neha Sharma", "neha@gmail.com", "Swimming", "Gold", "2026-09-15"),
-    ("Karan Patel", "karan@gmail.com", "Football", "Trial", "2026-07-18"),
-    ("Ananya Roy", "ananya@gmail.com", "Badminton", "Premium", "2027-01-01"),
-    ("Rohit Das", "rohit@gmail.com", "Cricket", "Gold", "2026-12-05"),
-    ("Sneha Jain", "sneha@gmail.com", "Tennis", "Trial", "2026-07-22")
+    ("Rahul Sharma", "rahul@gmail.com", "Badminton", "Trial", str(today + timedelta(days=7))),
+    ("Priya Singh", "priya@gmail.com", "Football", "Premium", str(today + timedelta(days=180))),
+    ("Aman Verma", "aman@gmail.com", "Cricket", "Gold", str(today + timedelta(days=120))),
+    ("Riya Gupta", "riya@gmail.com", "Badminton", "Premium", str(today + timedelta(days=90))),
+    ("Arjun Kumar", "arjun@gmail.com", "Tennis", "Trial", str(today + timedelta(days=14))),
+    ("Neha Sharma", "neha@gmail.com", "Swimming", "Gold", str(today + timedelta(days=60))),
+    ("Karan Patel", "karan@gmail.com", "Football", "Trial", str(today + timedelta(days=10))),
+    ("Ananya Roy", "ananya@gmail.com", "Badminton", "Premium", str(today + timedelta(days=200))),
+    ("Rohit Das", "rohit@gmail.com", "Cricket", "Gold", str(today + timedelta(days=150))),
+    ("Sneha Jain", "sneha@gmail.com", "Tennis", "Trial", str(today + timedelta(days=20)))
 ]
 
 cursor.executemany("""
@@ -24,19 +28,27 @@ INSERT INTO users(name,email,sport,membership,trial_end)
 VALUES(?,?,?,?,?)
 """, users)
 
-# Revenue
 payments = [
-    ("Rahul Sharma", 500, "2026-07-08"),
-    ("Priya Singh", 700, "2026-07-08"),
-    ("Aman Verma", 400, "2026-07-08"),
-    ("Riya Gupta", 600, "2026-07-08"),
-    ("Arjun Kumar", 350, "2026-07-08"),
-    ("Rahul Sharma", 500, "2026-07-09"),
-    ("Neha Sharma", 800, "2026-07-09"),
-    ("Karan Patel", 450, "2026-07-09"),
-    ("Ananya Roy", 700, "2026-07-09"),
-    ("Rohit Das", 550, "2026-07-09"),
-    ("Sneha Jain", 300, "2026-07-09")
+
+    # Today
+    ("Rahul Sharma", 500, str(today)),
+    ("Priya Singh", 700, str(today)),
+    ("Aman Verma", 400, str(today)),
+    ("Riya Gupta", 600, str(today)),
+    ("Arjun Kumar", 350, str(today)),
+
+    # Yesterday
+    ("Neha Sharma", 800, str(yesterday)),
+    ("Karan Patel", 450, str(yesterday)),
+    ("Ananya Roy", 700, str(yesterday)),
+
+    # Two days ago
+    ("Rohit Das", 550, str(two_days)),
+    ("Sneha Jain", 300, str(two_days)),
+
+    # Three days ago
+    ("Rahul Sharma", 900, str(three_days)),
+    ("Riya Gupta", 650, str(three_days)),
 ]
 
 cursor.executemany("""
@@ -47,4 +59,4 @@ VALUES(?,?,?)
 conn.commit()
 conn.close()
 
-print(" Database seeded successfully!")
+print("✅ Database seeded successfully!")

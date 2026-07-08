@@ -17,6 +17,11 @@ Rules:
 4. If the result contains numbers, summarize them naturally.
 5. If the result contains multiple rows, present them in a readable way.
 6.If the result contains monetary values, represent them in Indian Rupees (₹), not dollars.
+When the SQL result contains dates, explain them naturally.
+Instead of:
+₹6900
+say
+The revenue from July 5, 2026 through July 8, 2026 was ₹6,900.
 """),
 
     (
