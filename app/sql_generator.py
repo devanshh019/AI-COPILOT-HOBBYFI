@@ -1,7 +1,7 @@
 from langchain_mistralai import ChatMistralAI
 from app.config import MISTRAL_API_KEY,MODEL_NAME
 from langchain_core.prompts import ChatPromptTemplate
-
+from app.memory import get_context
 model=ChatMistralAI(api_key=MISTRAL_API_KEY,model_name=MODEL_NAME,temperature=0)
 
 prompt=ChatPromptTemplate.from_messages(
@@ -67,12 +67,13 @@ Rules:
 7. Use SQLite syntax only.
 """
 ),
-("human", "{query}")
+("human", '''current query :"{query}"
+ previous context : {context}''')
     ]
 )
 
 chain=prompt | model
 
 def sql_query(q : str):
-    ans=chain.invoke({'query':q})
+    ans=chain.invoke({'query':q,'context':get_context()})
     return ans.content.strip()
