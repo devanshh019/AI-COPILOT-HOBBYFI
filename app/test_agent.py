@@ -14,10 +14,10 @@ for q in queries:
     print("=" * 60)
     print("Query:", q)
 
-    allowed, message = check_guardrail(q)
+    decision = check_guardrail(q)
 
-    if not allowed:
-        print( message)
+    if decision!="ALLOW":
+        print(decision ,'BLOCKED BY GUARDRAIL')
         continue
 
     print(run_agent(q))
