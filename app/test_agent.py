@@ -1,5 +1,6 @@
 from app.guardrail import check_guardrail
 from app.agent import run_agent
+from app.sql_generator import sql_query
 
 queries = [
     "Show today's revenue",
@@ -21,3 +22,4 @@ for q in queries:
         continue
 
     print(run_agent(q))
+    

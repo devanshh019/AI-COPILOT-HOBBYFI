@@ -1,16 +1,18 @@
+from app.sql_generator import sql_query
+from app.db import execute
 def read_tool(query: str):
-
+    sql=sql_query(query)
+    res=execute(sql)
     return {
-        "status": "success",
-        "operation": "READ",
-        "data": f"Mock Read Result for: {query}"
+        'generated sql':sql,
+        'results':res
     }
+    
 
 
-def write_tool(query: str):
-
+def write_tool(query):
     return {
-        "status": "pending_approval",
-        "operation": "WRITE",
-        "message": f"Approval required for: {query}"
+        "status": "PENDING_APPROVAL",
+        "query": query,
+        "message": "Owner approval is required before executing this action."
     }
